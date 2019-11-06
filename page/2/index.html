@@ -61,6 +61,302 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JSP内置对象（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/06/JSP%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
+  <time datetime="2019-11-06T10:35:05.000Z" itemprop="datePublished">2019-11-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/06/JSP%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89/">JSP内置对象（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文章部分参考<a href="https://blog.csdn.net/pan_junbiao/article/details/87916435" target="_blank" rel="noopener">https://blog.csdn.net/pan_junbiao/article/details/87916435</a></p>
+<p>JSP提供了由容器实现和管理的内置对象，也可以称之为隐含对象，由于JSP使用Java作为脚本语言，所以JSP将具有强大的对象处理能力，并且可以动态创建Web页面内容。但Java语法在使用一个对象前，需要先实例化这个对象，这其实是一件比较烦琐的事情。JSP为了简化开发，提供了一些内置对象，用来实现很多JSP应用。在使用JSP内置对象时，不需要先定义这些对象，直接使用即可。</p>
+<p>在JSP中一共预先定义了9个这样的对象，分别为request、response、session、application、out、pageContext、config、pag和exception。</p>
+<p>内置对象    类型<br>request    javax.servlet.http.HttpServletRequest<br>response    javax.servlet.http.HttpServletResponse<br>session    javax.servlet.http.HttpSession<br>application    javax.servlet.ServletContext<br>out    javax.servlet.jsp.JspWriter<br>pageContext    javax.servlet.jsp.PageContext<br>config    javax.servlet.ServletConfig<br>page    javax.servlet.jsp.JspPage<br>exception    javax.servlet.jsp.JspException<br>一、request对象</p>
+<p>request对象封装了由客户端生成的HTTP请求的所有细节，主要包括HTTP头信息、系统信息、请求方式和请求参数等。通过request对象提供的相应方法可以处理客户端浏览器提交的HTTP请求中的各项参数。</p>
+<p>request对象的常用方法：</p>
+<p>方法    说明<br>String getParameter(String name)    根据页面表单组件名称获取页面提交数据。<br>String[] getParameterValues(String name)    获取一个页面表单组件对于多个值时的用户的请求数据。<br>void setCharacterEncoding(String env)    指定每个请求的编码，在调用request.getParameter() 方法之前进行设定，可以用于解决中文乱码问题。<br>request.getRequestDispatcher(String path)    返回一个 javax.servlet.RequestDispatcher 对象，该对象的forward方法用于转发请求。<br>void setAttribute(String name,Object object)    方法将数据保存到request范围内的变量中。<br>Object getAttribute(String name)    获取request范围内的变量中的数据。<br>void removeAttribute(String name)    删除request范围内的变量中的数据。<br>Cookie[] getCookies()    获取到所有cookie对象的集合。<br>1.1 访问请求参数</p>
+<p>我们知道request对象用于处理HTTP请求中的各项参数。在这些参数中，最常用的就是获取访问请求参数。当我们通过超链接的形式发送请求时，可以为该请求传递参数，这可以通过在超链接的后面加上问号“?”来实现。注意这个问号为英文半角的符号。</p>
+<p>如果要同时指定多个参数，各参数间使用与符号“&amp;”分隔即可。</p>
+<p>示例：在页面中定义超链接。</p>
+<p><a herf="delete.jsp?id=1&pwaaword=2">删除</a><br>在delete.jsp页面中，可以通过request对象的getParameter()方法获取传递的参数值。</p>
+<p>&lt;%<br>    String id = request.getParameter(“id”);  //获取id参数的值<br>%&gt;<br>示例：编程学员注册功能。要求提交注册信息后，显示学员输入的数据。</p>
+<p>（1）注册页面 reginput.jsp。</p>
+<p>&lt;%@ page language=”java” contentType=”text/html; charset=UTF-8” pageEncoding=”UTF-8”%&gt;<br><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"></p>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>学员注册</title>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<body>
+    <div align="center">请输入注册信息
+        <form name="form1" method="post" action="reginfo.jsp">
+            <table border="0" align="center">
+                <tr>
+                    <td>用户姓名：</td>
+                    <td><input type="text" name="name" style="width:250px;" /></td>
+                </tr>
+                <tr>
+                    <td>博客地址：</td>
+                    <td><input type="text" name="blog" style="width:250px;"/></td>
+                </tr>
+                <tr>
+                    <td>兴趣爱好：</td>
+                    <td>
+                        <input type="checkbox" name="interests" value="足球"  />足球
+                        <input type="checkbox" name="interests" value="篮球"  />篮球
+                        <input type="checkbox" name="interests" value="羽毛球"  />羽毛球
+                        <input type="checkbox" name="interests" value="乒乓球"  />乒乓球
+                    </td>
+                </tr>
+                <!-- 以下是提交、取消按钮 -->
+                <tr>
+                    <td>
+                        <input type="submit" value="提交" />
+                    </td>
+                    <td>
+                        <input type="reset" value="取消" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
+（2）注册页面 reginfo.jsp。
+
+
+<p>&lt;%@ page language=”java” contentType=”text/html; charset=UTF-8” pageEncoding=”UTF-8”%&gt;<br><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"></p>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>注册提交</title>
+</head>
+<body>
+<%
+    request.setCharacterEncoding("UTF-8");       //设置请求编码
+    String name = request.getParameter("name");  //获取用户名
+    String blog = request.getParameter("blog");  //获取博客地址
+
+<pre><code>//获取兴趣爱好
+String[] interests = request.getParameterValues(&quot;interests&quot;);
+String interStr = &quot;&quot;;
+if(interests != null)
+{
+    for(String item : interests)
+    {
+        interStr += item + &quot;;&quot;;
+    }
+}</code></pre><p>%&gt;</p>
+<pre><code>用户姓名：&lt;%= name %&gt;&lt;br/&gt;
+博客地址：&lt;%= blog %&gt;&lt;br/&gt;
+兴趣爱好：&lt;%= interStr %&gt;</code></pre></body>
+</html>
+执行结果：
+
+<p>（1）注册页面 reginput.jsp：</p>
+<p>（2）注册提交页面 reginfo.jsp：</p>
+<p>1.2 在作用域中管理属性</p>
+<p>在进行请求转发时，需要把一些数据传递到转发后的页面进行处理。这时，就需要使用request对象的setAttribute()方法将数据保存到request范围内的变量中。request对象的setAttribute()方法的语法格式如下：</p>
+<p>request.setAttribute(String name,Object object);<br>在将数据保存到request范围内的变量中后，可以通过request对象的getAttribute()方法获取该变量的值，具体的语法格式如下：</p>
+<p>request.getAttribute(String name);<br>1.3 获取cookie</p>
+<p>cookie的中文意思是小甜饼，然而在互联网上的意思与这就完全不同了。它和食品完全没有关系。在互联网中，cookie是小段的文本信息，在网络服务器上生成，并发送给浏览器的。通过使用cookie可以标识用户身份，记录用户名和密码，跟踪重复用户等。浏览器将cookie以key/value的形式保存到客户机的某个指定目录中。</p>
+<p>通过cookie的getCookies()方法即可获取到所有cookie对象的集合；通过cookie对象的getName()方法可以获取到指定名称的cookie；通过getValue()方法即可获取到cookie对象的值。另外将一个cookie对象发送到客户端使用了response对象的addCookie()方法。</p>
+<p>示例：通过cookie保存用户信息。</p>
+<p>（1）写入cookie对象页面 index.jsp。</p>
+<p>&lt;%@ page language=”java” contentType=”text/html; charset=UTF-8” pageEncoding=”UTF-8”%&gt;</p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>写入cookie对象</title>
+</head>
+<body>
+<%
+    //写入cookie对象
+    request.setCharacterEncoding("UTF-8");  //设置请求的编码
+    Cookie cookie = new Cookie("userCookie","指人猫的博客");  //创建并实例化cookie对象
+    cookie.setMaxAge(60*60*24*14);  //设置cookie有效期为两周
+    response.addCookie(cookie);  //保存cookie对象
+    Cookie [] cookies = request.getCookies(); //创建一个cookie数组，并获取当前存入的值
+    if(cookies!=null){ //判断是否写入成功
+        out.print("<h3>写入对象成功。</h3>"); //利用out对象输出信息    
+    }else{
+        out.print("<h3>写入对象失败。</h3>"); 
+    }
+%>
+   <a href="deal.jsp">查看cookie内容</a>
+</body>
+</html>
+（2）读取cookie值页面deal.jsp。
+
+
+<p>&lt;%@ page language=”java” contentType=”text/html; charset=UTF-8” pageEncoding=”UTF-8”%&gt;<br><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"></p>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>读取cookie值</title>
+</head>
+<body>
+<%
+    //读取cookie值
+    Cookie[] cookies = request.getCookies();  //从request中获取cookie对象的集合
+    String user = ""; //创建接收cookie值的容器
+    if(cookies != null) //如果cookie里面的值不为空则执行以下操作
+    {
+        //遍历cookie对象集合
+        for(Cookie cookieItem : cookies)
+        {
+            //获取cookie的name并判断是否为咱们设置的userCookie
+            if(cookieItem.getName().equals("userCookie")) 
+            {
+                user = cookieItem.getValue();  //读取cookie对象的的值
+                out.print("<h3>"+user+"</h3>"); //利用out对象把cookie的值输出出来
+            }
+        }
+    }else{
+        out.print("cookie里值为空。");
+    }
+%>
+</body>
+</html>
+执行结果：
+
+<p>（1）写入cookie页面：</p>
+<p>（2）读取cookie页面：</p>
+<p>1.4 解决中文乱码</p>
+<p>当请求参数的文字编码方式与页面中的不一致时，页面中的中文就会显示成乱码。所有的request请求都是iso-8859-1的，而在此页面采用的是UTF-8的编码方式。要解决此问题，只要将获取到的数据通过String的构造方法使用指定的编码类型重新构造一个String对象即可正确地显示出中文信息。</p>
+<body>
+    <a href="deal.jsp?name=张三&sex=男">解决中文乱码</a>
+</body>
+
+<body>
+    name参数的值为：<%=new String(request.getParameter("name").getBytes("iso-8859-1"),"UTF-8") %><br>
+    sex参数的值为：<%=request.getParameter("sex") %>
+</body>
+1.5 获取客户端信息
+
+<p>通过request对象可以获取客户端的相关信息，如HTTP报头信息，客户信息提交方式、客户端主机IP地址、端口号等。</p>
+<p>request获取客户端信息的常用方法：</p>
+<p>方法    说明<br>getHeader(String name)    获取HTTP协议定义的文件头信息。<br>getHeaders(String name)    返回指定名字的request Header的所有值，其结果是一个枚举型的示例。<br>getHeaderNames()    返回所有request Header的名字，其结果是一个枚举型的实例。<br>getMethod()    获取客户端向服务器端传送数据的方法，如get、post、header、trace等。<br>getProtocol()    获取客户端向服务器端传送数据所依据的协议名称。<br>getRequestURI()    获取发出请求字符串的客户端地址，不包括请求参数。<br>getRequestURL()    获取发出请求字符串的客户端地址。<br>getRealPath(String path)    返回当前请求文件的绝对路径。<br>getRemoteAddr()    获取客户端的IP地址。<br>getRemoteHost()    获取客户端的主机名。<br>getServerName()    获取服务器的名字。<br>getServletPath()    获取客户端所请求的脚本文件的文件路径。<br>getServerPort()    获取服务器的端口号。<br>示例：用request对象的相关方法获取客户端信息。</p>
+<p>&lt;%@ page language=”java” contentType=”text/html; charset=UTF-8” pageEncoding=”UTF-8”%&gt;</p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>获取客户端信息</title>
+</head>
+<body>
+客户提交信息的方式：<%=request.getMethod()%>
+<br>使用的协议：<%=request.getProtocol()%>
+<br>获取发出请求字符串的客户端地址：<%=request.getRequestURI()%>
+<br>获取发出请求字符串的客户端地址：<%=request.getRequestURL()%>
+<br>获取提交数据的客户端IP地址：<%=request.getRemoteAddr()%>
+<br>获取服务器端口号：<%=request.getServerPort()%>
+<br>获取服务器的名称：<%=request.getServerName()%>
+<br>获取客户端的主机名：<%=request.getRemoteHost()%>
+<br>获取客户端所请求的脚本文件的文件路径:<%=request.getServletPath()%>
+<br>获得Http协议定义的文件头信息Host的值:<%=request.getHeader("host")%>
+<br>获得Http协议定义的文件头信息User-Agent的值:<%=request.getHeader("user-agent")%>
+<br>获得Http协议定义的文件头信息accept-language的值:<%=request.getHeader("accept-language")%>
+<br>获得请求文件的绝对路径:<%=request.getRealPath("show.jsp")%>
+</body>
+</html>
+执行结果：
+
+
+<p>1.6 显示国际化信息</p>
+<p>浏览器可以通过accept-language的HTTP报头向Web服务器指明它所使用的本地语言。request对象中的getLocale()和getLocales()方法允许JSP开发人员获取这一信息，获取的信息属于java.util.Local类型。java.util.Local类型的对象封装了一个国家和一种国家所使用的语言。使用这一信息，JSP开发者就可以使用语言所特有的信息作出响应。</p>
+<p>示例：页面信息国际化。</p>
+<p>&lt;%@ page language=”java” contentType=”text/html; charset=UTF-8” pageEncoding=”UTF-8”%&gt;</p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>显示国际信息</title>
+</head>
+<body>    
+<%
+    java.util.Locale locale = request.getLocale(); //获取本地语言
+    String str = "";
+    if(locale.equals(java.util.Locale.US))  //判断本地语言
+    {
+        str = "Hello, Welcome to czongz's blog!";
+    }
+    else if(locale.equals(java.util.Locale.CHINA))
+    {
+        str = "您好，欢迎访问指人猫的博客！";
+    }
+%>
+<%= str %>
+</body>
+</html>
+执行结果：
+
+
+<p>二、response对象</p>
+<p>response对象用于响应客户请求，向客户端输出信息。它封装了JSP产生的响应，并发送到客户端以响应客户端的请求。请求的数据可以是各种数据类型，甚至是文件。response对象在JSP页面内有效。</p>
+<p>request对象的常用方法：</p>
+<p>方法    说明<br>sendRedirect(String path)    将网页重定向到另一个页面。<br>setHeader(String name, String value)    设置HTTP响应报头信息。<br>2.1 重定向网页</p>
+<p>使用response对象提供的sendRedirect()方法可以将网页重定向到另一个页面。重定向操作支持将地址重定向到不同的主机上，这一点与转发不同。在客户端浏览器上将会得到跳转的地址，并重新发送请求链接。用户可以从浏览器的地址栏中看到跳转后的地址。进行重定向操作后，request中的属性全部失效，并且开始一个新的request对象。sendRedirect()方法的语法格式如下：</p>
+<p>response.sendRedirect(String path);<br>参数说明：</p>
+<p>path：用于指定目标路径，可以是相对路径，也可以是不同主机的其他URL地址。</p>
+<p>示例：使用response对象提供的sendRedirect()方法重定向到登录页面。</p>
+<p>&lt;%<br>    response.sendRedirect(“login.jsp”);  //重定向到登录页面<br>%&gt;<br>2.2 处理HTTP文件头</p>
+<p>通过response对象可以设置HTTP响应报头，其中，最常用的是禁用缓存、设置页面自动刷新和定时跳转网页。下面分别进行介绍。</p>
+<p>设置HTTP响应报头方法的语法格式如下：</p>
+<p>response.setHeader(String name, String value);<br>2.2.1 禁用缓存<br>在默认情况下，浏览器将会对显示的网页内容进行缓存，这样可以提高网页的显示速度。对于一些安全性要求比较高的网站，通常需要禁用缓存。</p>
+<p>示例：通过设置HTTP头的方式实现禁用缓存。</p>
+<p>&lt;%<br>    response.setHeader(“Cache-Control”, “no-store”);<br>    response.setDateHeader(“Expires”, 0);<br>%&gt;<br>2.2.2 设置页面自动刷新<br>通过设置HTTP头还可以实现页面的自动刷新。</p>
+<p>示例：使页面每隔10秒自动刷新一次。</p>
+<p>&lt;%<br>    response.setHeader(“refresh”, “10”);  //后面参数是10s<br>%&gt;<br>2.2.3 定时跳转页面<br>通过设置HTTP头还可以实现定时跳转页面功能。</p>
+<p>示例：使页面5秒后自动跳转到指定的网页。</p>
+<p>&lt;%<br>    //后面参数要写上秒数和url中间分号分割<br>    response.setHeader(“refresh”, “5;URL=login.jsp”);<br>%&gt;<br>2.3 设置输出缓冲</p>
+<p>通常情况下，服务器要输出到客户端的内容不会直接写到客户端，而是先写到一个输出缓冲区，在计算机术语中，缓冲区被定义为暂时放置输入或输出资料的内存。实际上，缓冲区也可以这样理解：在一个粮库中，由于装缷车队的速度要快于传送带的传输速度，为了不造成装缷车队的浪费，粮库设计了一个站台，装缷车队可以先将运送的粮食缷到这个平台上，然后让传送机慢慢传送。粮库的这个站台就起到了缓冲的作用。</p>
+<p>response对象提供的对缓冲区进行配置的方法：</p>
+<p>flushBuffer()    强制将缓冲区的内容输出到客户端。<br>getBufferSize()    获取响应所使用的缓冲区的实际大小，如果没有使用缓冲区，则返回0。<br>setBufferSize(int size)    设置缓冲区大小。<br>reset()    清除缓冲区的内容，同时清除状态码和报头。<br>isCommitted()    检查服务器端是否已经把数据写入到客户端。<br>示例：设置缓冲区的大小为32KB。</p>
+<p>&lt;%<br>    response.setBufferSize(32);<br>%&gt;<br>说明：如果将缓冲区的大小设置为0KB，则表示不缓冲。</p>
+<p>三、session对象</p>
+<p>session在网络中被称为会话。由于HTTP协议是一种无状态协议，也就是当一个客户向服务器发出请求，服务器接收请求，并返回响应后，该连接就结束了，而服务器并不保存相关的信息。为了弥补这一缺点，HTTP协议提供了session。通过session可以在应用程序的Web页面间进行跳转时，保存用户的状态，使整个用户会话一直存在下去，直到关闭浏览器。但是，如果在一个会话中，客户端长时间不向服务器发出请求，session对象就会自动消失。这个时间取决于服务器，例如，Tomcat服务器默认为30分钟。不过这个时间可以通过编写程序进行修改。</p>
+<p>session对象的常用方法：</p>
+<p>setAttribute(String name,Object value)    该方法用于将信息保存到session范围内。<br>Object getAttribute(String name)    该方法用于获取session信息，返回值为Object类型。<br>removeAttribute(String name)    移除session对象。<br>invalidate()    销毁session对象。<br>long getLastAccessedTime()    返回客户端最后一次与会话相关联的请求时间。<br>int getMaxInactiveInterval()    以秒为单位返回一个会话内两次请求最大时间间隔。<br>setMaxInactiveInterval(int interval)    以秒为单位设置session的有效时间。<br>long getCreationTime()    返回session对象被创建的时间， 以毫秒为单位，从1970年1月1号凌晨开始算起。<br>String getId()    返回session对象的ID。<br>boolean isNew()    返回是否为一个新的客户端，或者客户端是否拒绝加入session。<br>示例：保存与获取session对象信息。</p>
+<p>&lt;%<br>    session.setAttribute(“UserName”, “指人猫的博客”);           //保存session对象<br>    String userName = session.getAttribute(“UserName”).toString();  //获取session对象<br>%&gt;<br>配置web.xml文件：</p>
+<p>如果使用的是Tomcat，可以向下面这样配置web.xml文件：</p>
+<session-config>
+    <session-timeout>15</session-timeout>
+</session-config>
+超时以分钟为单位，Tomcat中的默认的超时时间是30分钟。
+
+<p>Servlet中的getMaxInactiveInterval( )方法以秒为单位返回超时时间。如果在web.xml中配置的是15分钟，则getMaxInactiveInterval( )方法将会返回900。</p>
+<p>赏</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/11/06/JSP%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="ck2n74oy6000bu0ca9hvf4sj3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/11/06/hello-world/" class="article-date">
@@ -100,7 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/hello-world/" data-id="ck2n6tyyf00020cca7ot7ah5h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/06/hello-world/" data-id="ck2n74ox30003u0ca5kyehujh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -146,6 +442,10 @@
       <ul>
         
           <li>
+            <a href="/2019/11/06/myeclipse%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%A4%A7%E5%85%A8/">myeclipse快捷键大全</a>
+          </li>
+        
+          <li>
             <a href="/2019/11/06/java%E6%8E%A5%E5%8F%A3%E6%80%BB%E7%BB%93/">java接口总结</a>
           </li>
         
@@ -159,10 +459,6 @@
         
           <li>
             <a href="/2019/11/06/java%E6%B3%9B%E5%9E%8B/">java泛型</a>
-          </li>
-        
-          <li>
-            <a href="/2019/11/06/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E9%85%8D/">安卓开发环境搭配</a>
           </li>
         
       </ul>
