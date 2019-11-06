@@ -61,6 +61,78 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JDK-开发环境配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/06/JDK-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2019-11-06T11:02:26.000Z" itemprop="datePublished">2019-11-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/06/JDK-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">JDK 开发环境配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>JDK 开发环境配置<br>在本章节中我们将为大家介绍如何搭建Java开发环境。</p>
+<p>Windows 上安装开发环境<br>Linux 上安装开发环境<br>安装 Eclipse 运行 Java<br>WINDOW系统安装JAVA<br>下载JDK</p>
+<p>首先我们需要下载java开发工具包JDK，下载地址：<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html，点击如下下载按钮：" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/downloads/index.html，点击如下下载按钮：</a></p>
+<p>img<br>在下载页面中你需要选择接受许可，并根据自己的系统选择对应的版本，本文以 Window 64位系统为例：</p>
+<p>img<br>下载后JDK的安装根据提示进行，还有安装JDK的时候也会安装JRE，一并安装就可以了。</p>
+<p>安装JDK，安装过程中可以自定义安装目录等信息，例如我们选择安装目录为 C:\Program Files (x86)\Java\jdk1.8.0_91。</p>
+<p>配置环境变量</p>
+<p>1.安装完成后，右击”我的电脑”，点击”属性”，选择”高级系统设置”；</p>
+<p>img<br>2.选择”高级”选项卡，点击”环境变量”；</p>
+<p>img<br>然后就会出现如下图所示的画面：</p>
+<p>img<br>注意：如果使用 1.5 以上版本的 JDK，不用设置 CLASSPATH 环境变量，也可以正常编译和运行 Java 程序。<br>变量设置参数如下：</p>
+<p>变量名：JAVA_HOME</p>
+<p>变量值：C:\Program Files (x86)\Java\jdk1.8.0_91 // 要根据自己的实际路径配置</p>
+<p>变量名：CLASSPATH</p>
+<p>变量值：.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar; //记得前面有个”.”</p>
+<p>变量名：Path</p>
+<p>变量值：%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;</p>
+<p>JAVA_HOME 设置</p>
+<p>img<br>img<br>PATH设置</p>
+<p>img<br>img<br>注意：在 Windows10 中，Path 变量里是分条显示的，我们需要将 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin; 分开添加，否则无法识别：</p>
+<p>1<br>2<br>3</p>
+<blockquote>
+<p>%JAVA_HOME%\bin;<br>%JAVA_HOME%\jre\bin;</p>
+</blockquote>
+<p>img<br>更多内容可参考：Windows 10 配置Java 环境变量<br>CLASSPATH 设置</p>
+<p>img<br>这是 Java 的环境配置，配置完成后，你可以启动 Eclipse 来编写代码，它会自动完成java环境的配置。</p>
+<p>测试JDK是否安装成功</p>
+<p>1、”开始”-&gt;”运行”，键入”cmd”；</p>
+<p>2、键入命令: java -version、java、javac 几个命令，出现以下信息，说明环境变量配置成功；</p>
+<p>img<br>LINUX，UNIX，SOLARIS，FREEBSD环境变量设置<br>环境变量PATH应该设定为指向Java二进制文件安装的位置。如果设置遇到困难，请参考shell文档。</p>
+<p>例如，假设你使用bash作为shell，你可以把下面的内容添加到你的 .bashrc文件结尾: export PATH=/path/to/java:$PATH</p>
+<p>流行JAVA开发工具<br>正所谓工欲善其事必先利其器，我们在开发java语言过程中同样需要一款不错的开发工具，目前市场上的IDE很多，本文为大家推荐以下下几款java开发工具：</p>
+<p>Eclipse（推荐）:另一个免费开源的java IDE，下载地址： <a href="http://www.eclipse.org/downloads/packages/" target="_blank" rel="noopener">http://www.eclipse.org/downloads/packages/</a></p>
+<p>选择 Eclipse IDE for Java Developers：<br>img<br>JetBrains 的 IDEA， 现在很多人开始使用了，功能很强大，下载地址：<a href="https://www.jetbrains.com/idea/download/" target="_blank" rel="noopener">https://www.jetbrains.com/idea/download/</a></p>
+<p>Notepad++ : Notepad++ 是在微软视窗环境之下的一个免费的代码编辑器，下载地址： <a href="http://notepad-plus-plus.org/" target="_blank" rel="noopener">http://notepad-plus-plus.org/</a></p>
+<p>Netbeans:开源免费的java IDE，下载地址： <a href="http://www.netbeans.org/index.html" target="_blank" rel="noopener">http://www.netbeans.org/index.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/11/06/JDK-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" data-id="ck2n6c4wj0000qscactwo78kd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-java多线程编程" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/11/06/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/" class="article-date">
@@ -139,7 +211,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/" data-id="ck2n69b120004i8ca0z717dkt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/06/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/" data-id="ck2n6c4x80004qscafo3sczxa" class="article-share-link">Share</a>
       
       
     </footer>
@@ -184,7 +256,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/Vue%E9%A3%8E%E6%A0%BC%E7%9A%84Typora%E4%B8%BB%E9%A2%98/" data-id="ck2n69b0d0000i8cafsyx9scu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/06/Vue%E9%A3%8E%E6%A0%BC%E7%9A%84Typora%E4%B8%BB%E9%A2%98/" data-id="ck2n6c4wr0001qscaew2lhl6n" class="article-share-link">Share</a>
       
       
     </footer>
@@ -289,7 +361,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/Java%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" data-id="ck2n69b0o0002i8ca55kjbiul" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/06/Java%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" data-id="ck2n6c4x60003qscahrkd8tkn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -585,7 +657,7 @@ if(interests != null)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/JSP%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="ck2n69b0y0003i8cadc6t9gf0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/06/JSP%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="ck2n6c4xn0005qscafa842y9j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -634,7 +706,7 @@ if(interests != null)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/hello-world/" data-id="ck2n69b0l0001i8ca61cgbxxi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/06/hello-world/" data-id="ck2n6c4wt0002qsca74486fwu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -675,6 +747,10 @@ if(interests != null)
       <ul>
         
           <li>
+            <a href="/2019/11/06/JDK-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">JDK 开发环境配置</a>
+          </li>
+        
+          <li>
             <a href="/2019/11/06/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/">java多线程编程</a>
           </li>
         
@@ -688,10 +764,6 @@ if(interests != null)
         
           <li>
             <a href="/2019/11/06/JSP%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89/">JSP内置对象（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2019/11/06/hello-world/">Hello World</a>
           </li>
         
       </ul>
