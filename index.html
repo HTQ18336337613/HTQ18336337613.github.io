@@ -61,6 +61,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-安卓开发环境搭配" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/06/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E9%85%8D/" class="article-date">
+  <time datetime="2019-11-06T11:06:09.000Z" itemprop="datePublished">2019-11-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/06/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E9%85%8D/">安卓开发环境搭配</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.2 开发环境搭建<br>分类 Android 基础入门教程</p>
+<p>现在主流的Android开发环境有: ①Eclipse + ADT + SDK ②Android Studio + SDK ③IntelliJ IDEA + SDK 现在国内大部分开发人员还是使用的Eclipse，而谷歌宣布不再更新ADT后，并且官网也去掉了集成Android开发环境的Eclipse下载链接，各种现象都表示开发者最后都终将过渡到Android Studio，当然这段过渡时间会很长，但如果你是刚学Android的话建议直接冲Android Studio着手；而且很多优秀的开源项目都是基于Android Studio！当然，在本教程中对两种开发环境都会进行一个介绍，用哪个取决与你自己~ 还有一个IntelliJ，和Android Studio差不多的，并不对此进行讲解！<br>1.JDK安装与配置<br>Step 1:下载JDK 可以到官网进行下载：Jdk官方下载 也可到笔者网盘下载：笔者网盘 PS:这个随便下一个都可以，关系不大，32位的只能下32位哦！<br>Step 2:JDK安装 傻瓜式的下一步即可！<br>Step 3:环境变量的配置 配置环境变量是为了方便我们一些命令行的操作，后续会用到！ 右键我的电脑——&gt;高级——&gt;环境变量 Java环境变量配置1 新建JAVA_HOME 新建JAVA_HOME 修改PATH变量，别把原本的东西删掉！！！！ 修改PATH变量 新建CLASSPATH 新建CLASSPATH 验证环境是否配置完成 打开电脑的cmd(命令行)，win键 + R输入cmd，然后在命令行依次javac和java，出现如图效果表示配置完成： 此处输入图片的描述<br>2.开发工具二选一<br>一开始也说了开发环境IDE的现状，另外前面忘记说一点:Android Studio是比较吃配置的，如果电脑不怎么好，建议还是先使用Eclipse进行Android开发，下面先说下我们熟悉IDE开发APP的流程，按照下述流程来熟悉IDE的使用：</p>
+<p>熟悉IDE开发APP的流程<br>然后下面两个选一个，开始我们的Android开发之路吧！</p>
+<p>Eclipse + ADT + SDK： Android Studio + SDK：<br>3.相关术语的解析<br>Dalvik： Android特有的虚拟机,和JVM不同,Dalvik虚拟机非常适合在移动终端上使用!<br>AVD： (android virtual machine):安卓虚拟设备,就是安卓的模拟器<br>ADT： (android development tools)安卓开发工具<br>SDK：(software development kit)软件开发工具包,就是安卓系统,平台架构等的工具集合,如adb.exe<br>DDMS：(dalvik debug monitor service)安卓调试工具<br>adb：安卓调试桥,在sdk的platform-tools目录下,功能很多,命令行必备<br>DX工具：将.class转换成.dex文件<br>AAPT：(android asset packing tool),安卓资源打包工具<br>R.java文件：由aapt工具根据App中的资源文件自动生成,可以理解为资源字典<br>AndroidManifest.xml：app包名 + 组件声明 + 程序兼容的最低版本 + 所需权限等程序的配置文件<br>后续内容对于初学者的你可能有点难度，但后面回头，你会发现这些东西很有用~ 看不懂的话，可以先跳过</p>
+<p>4.ADB命令行的一些指令<br>执行ADB指令之前我们还需要为我们的SDK配置一下环境变量 Step 1:新建一个ANDROID_HOME的环境变量，把sdk根目录地址贴上去： 此处输入图片的描述 Step 2:更新Path环境变量，在Paht开头加上：%ANDROID_HOME%\tools; 即可 配置完了，接下来就来学习指令了： 常用ADB指令<br>5.APP程序打包与安装的流程：<br>APP程序打包与安装的流程<br>6.APP的安装过程：<br>APP的安装过程<br>7.本节小结<br>本节我们对Android开发IDE的现状进行了分析，建议初学者硬件条件允许的话，使用Android Studio来进行Android APP的开发，讲述了JDK的安装与配置，以及熟悉IDE的流程，一些关键名称的解析，ADB命令行的常用指令，最后还有程序的打包安装和安装过程的解析！经过这章相信大家对Android开发有了个简单了解，了解开发一个程序的流程，以及对应的项目目录结构！相信大家会抱怨模拟器AVD跑得很慢，下节会给大家介绍一个比真机还快的Android模拟器——Genymotion的安装使用！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/11/06/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E9%85%8D/" data-id="ck2n6g9fv0003a8ca9e7j0r2a" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JDK-开发环境配置" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/11/06/JDK-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="article-date">
@@ -123,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/JDK-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" data-id="ck2n6c4wj0000qscactwo78kd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/06/JDK-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" data-id="ck2n6g9fk0000a8ca8rc2fr1h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -211,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/" data-id="ck2n6c4x80004qscafo3sczxa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/06/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/" data-id="ck2n6g9ga0005a8caf0wj764v" class="article-share-link">Share</a>
       
       
     </footer>
@@ -256,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/Vue%E9%A3%8E%E6%A0%BC%E7%9A%84Typora%E4%B8%BB%E9%A2%98/" data-id="ck2n6c4wr0001qscaew2lhl6n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/06/Vue%E9%A3%8E%E6%A0%BC%E7%9A%84Typora%E4%B8%BB%E9%A2%98/" data-id="ck2n6g9fu0002a8ca2xz6h7mw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -361,7 +402,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/Java%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" data-id="ck2n6c4x60003qscahrkd8tkn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/06/Java%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" data-id="ck2n6g9g80004a8ca3u679znd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -657,7 +698,7 @@ if(interests != null)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/JSP%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="ck2n6c4xn0005qscafa842y9j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/06/JSP%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="ck2n6g9gr0006a8ca8s5mcoox" class="article-share-link">Share</a>
       
       
     </footer>
@@ -706,7 +747,7 @@ if(interests != null)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/hello-world/" data-id="ck2n6c4wt0002qsca74486fwu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/06/hello-world/" data-id="ck2n6g9fr0001a8ca0huwgxz5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -747,6 +788,10 @@ if(interests != null)
       <ul>
         
           <li>
+            <a href="/2019/11/06/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E9%85%8D/">安卓开发环境搭配</a>
+          </li>
+        
+          <li>
             <a href="/2019/11/06/JDK-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">JDK 开发环境配置</a>
           </li>
         
@@ -760,10 +805,6 @@ if(interests != null)
         
           <li>
             <a href="/2019/11/06/Java%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">Java知识点总结</a>
-          </li>
-        
-          <li>
-            <a href="/2019/11/06/JSP%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89/">JSP内置对象（一）</a>
           </li>
         
       </ul>
